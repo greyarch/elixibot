@@ -16,7 +16,10 @@ defmodule Elixibot.Slack do
   def handle_message(message = %{type: "message", text: text}, slack, state) do
     match = Regex.run ~r/<@#{slack.me.id}>:?\s*(.*)/, text
     if match do
-      Slack.send_message(response(match), message.channel, slack)
+      [_, cmd] = match
+      parsed = String.split cmd
+      {resp, 0} = System.cmd hd(parsed), tl(parsed)
+      Slack.send_message(resp, message.channel, slack)
     end
     {:ok, state}
   end
