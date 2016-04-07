@@ -11,12 +11,13 @@ defmodule Elixibot.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :slack],
+    [applications: [:logger, :slack, :httpotion],
      mod: {Elixibot, []}]
   end
 
   defp deps do
     [{:slack, "~> 0.4.1"},
+     {:httpotion, "~> 2.2.0"},
      {:websocket_client, git: "https://github.com/jeremyong/websocket_client"}]
   end
 end
