@@ -1,9 +1,7 @@
 defmodule Elixibot.Slack do
   use Slack
 
-  @token Application.get_env(:elixibot, __MODULE__)[:token]
-
-  def start_link, do: start_link(@token, [])
+  def start_link, do: start_link(System.get_env("SLACK_AUTH_TOKEN"), [])
 
   def handle_message(message = %{type: "message", text: text}, slack, state) do
     match = Regex.run ~r/(<@#{slack.me.id}>|@#{slack.me.name}):?\s*(.*)/, text
